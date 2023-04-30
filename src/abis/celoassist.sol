@@ -42,7 +42,10 @@ contract CeloAssist{
 
 
     // Function to create a payee.
-    function createPayee(string memory _payeeFullName, string memory _payeeDescription, string memory _networkType, uint _payeeGasFee   ) public {
+    function createPayee(string calldata  _payeeFullName, string calldata  _payeeDescription, string calldata  _networkType, uint _payeeGasFee   ) public {
+    require(bytes(_payeeFullName).length > 0, "field cannot be empty"); 
+    require(bytes(_payeeDescription).length > 0, "field cannot be empty");
+    require(_payeeGasFee > 0, "fee be greater than 0");
         payee[payeeLength] = PayeeDetails({owner : payable(msg.sender), payeeFullName : _payeeFullName,
         payeeDescription : _payeeDescription, networkType : _networkType,
         payeeGasFee :  _payeeGasFee   });
@@ -76,6 +79,8 @@ contract CeloAssist{
 
         // function to fund a payee 
         function fundPayee(uint _index) public payable  {
+        require(payee[_index].owner != msg.sender, "You are the owner of this request");
+        require(IERC20Token(cUsdTokenAddress).balanceOf(msg.sender) >= payee[_index].payeeGasFee, "You don't have enough balance to fund this accout");
         require(
           IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
@@ -89,13 +94,13 @@ contract CeloAssist{
 
 
     // Function to store chat messages
-    function storeChatMessages(uint256 id, string memory _message) public {
+    function storeChatMessages(uint256 id, string calldata  _message) public {
          chats[id].push(Chat({owner : msg.sender, message : _message }));
     
     }
 
     //function to get chats associate with a payee by id
-    function getChatsById(uint256 id) public view returns (Chat[] memory) {
+    function getChatsById(uint256 id) public view returns (Chat[] memory ) {
         return chats[id];
     }
 
