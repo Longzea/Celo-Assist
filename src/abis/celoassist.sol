@@ -17,6 +17,11 @@ contract CeloAssist{
     // Declaring variables.
     uint internal payeeLength = 0;
     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
+
+        constructor(address _cUsdTokenAddress) {
+        cUsdTokenAddress = _cUsdTokenAddress;
+    }
+
      
     
     // Struct to create payee details.
@@ -71,13 +76,20 @@ contract CeloAssist{
     // function for a payee to delete his / her request 
     function deletePayeeRequest(uint id) public {
         require(msg.sender == payee[id].owner, "Please ensure you are the owner this request");
-        delete payee[id];
+          // Shift remaining payees down in the mapping
+        for (uint i = id; i < payeeLength - 1; i++) {
+            payee[i] = payee[i+1];
+        }
+        // Delete the last element in the mapping
+        delete payee[payeeLength - 1];
+        payeeLength--;
     }
+    
 
         // function to fund a payee 
         function fundPayee(uint _index) public payable  {
         require(
-          IERC20Token(cUsdTokenAddress).transferFrom(
+          IERC20Token(_cUsdTokenAddress).transferFrom(
             msg.sender,
             payee[_index].owner,
             payee[_index].payeeGasFee
