@@ -18,6 +18,10 @@ contract CeloAssist{
     uint internal payeeLength = 0;
     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
      
+    // Creating a constructor for the cUSD address
+    constructor(address _cUsdTokenAddress) {
+    cUsdTokenAddress = _cUsdTokenAddress;
+    }
     
     // Struct to create payee details.
     struct PayeeDetails {
@@ -43,6 +47,10 @@ contract CeloAssist{
 
     // Function to create a payee.
     function createPayee(string memory _payeeFullName, string memory _payeeDescription, string memory _networkType, uint _payeeGasFee   ) public {
+          require(bytes(_payeeFullName).length > 0, "field cannot be empty"); 
+    require(bytes(_payeeDescription).length > 0, "field cannot be empty");
+    require(_payeeGasFee > 0, "fee be greater than 0");
+       
         payee[payeeLength] = PayeeDetails({owner : payable(msg.sender), payeeFullName : _payeeFullName,
         payeeDescription : _payeeDescription, networkType : _networkType,
         payeeGasFee :  _payeeGasFee   });
@@ -71,13 +79,21 @@ contract CeloAssist{
     // function for a payee to delete his / her request 
     function deletePayeeRequest(uint id) public {
         require(msg.sender == payee[id].owner, "Please ensure you are the owner this request");
-        delete payee[id];
+         
+         // Shift remaining payees down in the mapping
+        for (uint i = id; i < payeeLength - 1; i++) {
+            payee[i] = payee[i+1];
+        }
+
+        // Delete the last element in the mapping
+        delete payee[payeeLength - 1];
+        payeeLength--;
     }
 
         // function to fund a payee 
         function fundPayee(uint _index) public payable  {
         require(
-          IERC20Token(cUsdTokenAddress).transferFrom(
+           IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
             payee[_index].owner,
             payee[_index].payeeGasFee

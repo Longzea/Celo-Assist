@@ -2,6 +2,17 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_cUsdTokenAddress",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_payeeFullName",
 				"type": "string"

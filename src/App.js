@@ -11,7 +11,7 @@ import RequestLists from './components/RequestLists';
 const ERC20_DECIMALS = 18;
 
 // Deployed smart contract address.
-const contractAddress = "0x3AcEEA272E68a5B95a087D708Bd7CaBfa9Ebe50b";
+const contractAddress = "0xbF3e77C4ab5c82485D2487e170b8457aEb2037F0";
 
 // cUSD contract address contract address.
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
