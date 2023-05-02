@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/Celo-Assist/static/js/main.910eee0e.chunk.js",
-    "main.js.map": "/Celo-Assist/static/js/main.910eee0e.chunk.js.map",
+    "main.js": "/Celo-Assist/static/js/main.318591a3.chunk.js",
+    "main.js.map": "/Celo-Assist/static/js/main.318591a3.chunk.js.map",
     "runtime-main.js": "/Celo-Assist/static/js/runtime-main.9434b508.js",
     "runtime-main.js.map": "/Celo-Assist/static/js/runtime-main.9434b508.js.map",
     "static/css/2.f26e749f.chunk.css": "/Celo-Assist/static/css/2.f26e749f.chunk.css",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.9434b508.js",
     "static/css/2.f26e749f.chunk.css",
     "static/js/2.a1cba9b8.chunk.js",
-    "static/js/main.910eee0e.chunk.js"
+    "static/js/main.318591a3.chunk.js"
   ]
 }
