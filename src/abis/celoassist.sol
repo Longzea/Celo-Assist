@@ -16,7 +16,7 @@ interface IERC20Token {
 contract CeloAssist{
     // Declaring variables.
     uint internal payeeLength = 0;
-    address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
+    address internal immutable cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
      
     // Creating a constructor for the cUSD address
     constructor(address _cUsdTokenAddress) {
@@ -91,18 +91,18 @@ contract CeloAssist{
     }
 
         // function to fund a payee 
-        function fundPayee(uint _index) public payable  {
+    function fundPayee(uint _index) public payable  {
+        PayeeDetails storage payeeToFund = payee[_index];
         require(
            IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
-            payee[_index].owner,
-            payee[_index].payeeGasFee
+            payeeToFund.owner,
+            payeeToFund.payeeGasFee
           ),
           "Transfer failed."
         );
         
     }
-
 
     // Function to store chat messages
     function storeChatMessages(uint256 id, string memory _message) public {
