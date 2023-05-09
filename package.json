@@ -10,6 +10,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^5.2.3",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "ethereum-blockies": "^0.1.1",
     "gh-pages": "^5.0.0",
     "react": "^17.0.2",
@@ -23,12 +25,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cross-env NODE_OPTIONS='--openssl-legacy-provider' react-scripts start",
+    "build": "cross-env NODE_OPTIONS='--openssl-legacy-provider' react-scripts build",
+    "predeploy": "cross-env NODE_OPTIONS='--openssl-legacy-provider' npm run build",
+    "deploy": "cross-env NODE_OPTIONS='--openssl-legacy-provider' gh-pages -d build",
+    "test": "cross-env NODE_OPTIONS='--openssl-legacy-provider' react-scripts test",
+    "eject": "cross-env NODE_OPTIONS='--openssl-legacy-provider' react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
